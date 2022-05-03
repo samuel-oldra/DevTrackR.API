@@ -12,16 +12,24 @@ namespace DevTrackR.API.Controllers
     public class PackagesController : ControllerBase
     {
         private readonly IPackageRepository _repository;
-        private readonly ISendGridClient _client;
 
-        public PackagesController(IPackageRepository repository, ISendGridClient client)
+        //private readonly ISendGridClient _client;
+
+        public PackagesController(IPackageRepository repository)
+        //public PackagesController(IPackageRepository repository, ISendGridClient client)
         {
             _repository = repository;
-            _client = client;
+            //_client = client;
         }
 
-        // GET api/packages
+        // GET: api/packages
+        /// <summary>
+        /// Listagem de Pacotes
+        /// </summary>
+        /// <returns>Lista de Pacotes</returns>
+        /// <response code="200">Sucesso</response>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetAll()
         {
             var packages = _repository.GetAll();
@@ -29,8 +37,17 @@ namespace DevTrackR.API.Controllers
             return Ok(packages);
         }
 
-        // GET api/packages/1234-5678-1234-3212
+        // GET: api/packages/{code}
+        /// <summary>
+        /// Detalhes do Pacote
+        /// </summary>
+        /// <param name="code">Código do Pacote</param>
+        /// <returns>Mostra um Pacote</returns>
+        /// <response code="200">Sucesso</response>
+        /// <response code="404">Não encontrado</response>
         [HttpGet("{code}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetByCode(string code)
         {
             var package = _repository.GetByCode(code);
@@ -43,22 +60,26 @@ namespace DevTrackR.API.Controllers
             return Ok(package);
         }
 
+        // POST: api/packages
         /// <summary>
-        /// Cadastro de  um pacote.
+        /// Cadastro do Pacote
         /// </summary>
         /// <remarks>
+        /// Requisição:
         /// {
         ///     "title": "Pacote Cartas Colecionáveis",
         ///     "weight": 1.8,
-        ///     "senderName": "Luis",
-        ///     "senderEmail": "bayiho6875@akapple.com"
+        ///     "senderName": "Samuel",
+        ///     "senderEmail": "samuel@teste"
         /// }
         /// </remarks>
-        /// <param name="model">Dados do pacote</param>
-        /// <returns>Objeto recém-criado.</returns>
-        /// <response code="201">Cadastro realizado com sucesso.</response>
-        /// <response code="400">Dados estão inválidos.</response>
+        /// <param name="model">Dados do Pacote</param>
+        /// <returns>Objeto criado</returns>
+        /// <response code="201">Sucesso</response>
+        /// <response code="400">Dados inválidos.</response>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Post(AddPackageInputModel model)
         {
             if (model.Title.Length < 10)
@@ -70,6 +91,7 @@ namespace DevTrackR.API.Controllers
 
             _repository.Add(package);
 
+            /*
             var message = new SendGridMessage
             {
                 From = new EmailAddress("bayiho6875@akapple.com", "BAYIHO"),
@@ -80,15 +102,35 @@ namespace DevTrackR.API.Controllers
             message.AddTo(model.SenderEmail, model.SenderName);
 
             await _client.SendEmailAsync(message);
+            */
 
             return CreatedAtAction(
                 "GetByCode",
                 new { code = package.Code },
-                package);
+                package
+            );
         }
 
-        // POST api/packages/1234-5678-1234-3212/updates
+        // POST: api/packages/{code}/updates
+        /// <summary>
+        /// Atualiza um Pacote
+        /// </summary>
+        /// <remarks>
+        /// Requisição:
+        /// {
+        ///     "Status": "Enviado",
+        ///     "Delivered": false
+        /// }
+        /// </remarks>
+        /// <param name="code">Código do Pacote</param>
+        /// <param name="model">Dados do Pacote</param>
+        /// <response code="204">Sucesso</response>
+        /// <response code="400">Dados inválidos</response>
+        /// <response code="404">Não encontrado</response>
         [HttpPost("{code}/updates")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult PostUpdate(string code, AddPackageUpdateInputModel model)
         {
             var package = _repository.GetByCode(code);

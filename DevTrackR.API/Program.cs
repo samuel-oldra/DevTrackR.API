@@ -8,15 +8,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-var connectionString = builder.Configuration.GetConnectionString("DevTrackRCs");
-
+// var connectionString = builder.Configuration.GetConnectionString("DevTrackRCs");
 // builder.Services.AddDbContext<DevTrackRContext>(o => o.UseSqlServer(connectionString));
+
 builder.Services.AddDbContext<DevTrackRContext>(o => o.UseInMemoryDatabase("DevTrackRDb"));
 
 builder.Services.AddScoped<IPackageRepository, PackageRepository>();
 
 var sendGridApiKey = builder.Configuration.GetSection("SendGridApiKey").Value;
-
 builder.Services.AddSendGrid(o => o.ApiKey = sendGridApiKey);
 
 builder.Services.AddControllers();
@@ -30,9 +29,9 @@ builder.Services.AddSwaggerGen(o =>
         Version = "v1",
         Contact = new OpenApiContact
         {
-            Name = "LuisDev",
-            Email = "contato@luisdev.com.br",
-            Url = new Uri("https://luisdev.com.br")
+            Name = "Samuel B. Oldra",
+            Email = "samuel.oldra@gmail.com",
+            Url = new Uri("https://github.com/samuel-oldra")
         }
     });
 
