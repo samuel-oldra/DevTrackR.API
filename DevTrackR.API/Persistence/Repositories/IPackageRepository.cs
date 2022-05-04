@@ -6,7 +6,7 @@ namespace DevTrackR.API.Persistence.Repositories
     {
         List<Package> GetAll();
 
-        Package GetByCode(string code);
+        Package? GetByCode(string code);
 
         void Add(Package package);
 

@@ -13,13 +13,12 @@ namespace DevTrackR.API.Controllers
     {
         private readonly IPackageRepository _repository;
 
-        //private readonly ISendGridClient _client;
+        private readonly ISendGridClient _client;
 
-        public PackagesController(IPackageRepository repository)
-        //public PackagesController(IPackageRepository repository, ISendGridClient client)
+        public PackagesController(IPackageRepository repository, ISendGridClient client)
         {
             _repository = repository;
-            //_client = client;
+            _client = client;
         }
 
         // GET: api/packages
@@ -52,10 +51,7 @@ namespace DevTrackR.API.Controllers
         {
             var package = _repository.GetByCode(code);
 
-            if (package == null)
-            {
-                return NotFound();
-            }
+            if (package == null) return NotFound();
 
             return Ok(package);
         }
@@ -82,16 +78,12 @@ namespace DevTrackR.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Post(AddPackageInputModel model)
         {
-            if (model.Title.Length < 10)
-            {
-                return BadRequest("Title length must be at least 10 characters long.");
-            }
+            if (model.Title.Length < 10) return BadRequest("Title length must be at least 10 characters long.");
 
             var package = new Package(model.Title, model.Weight);
 
             _repository.Add(package);
 
-            /*
             var message = new SendGridMessage
             {
                 From = new EmailAddress("bayiho6875@akapple.com", "BAYIHO"),
@@ -102,7 +94,6 @@ namespace DevTrackR.API.Controllers
             message.AddTo(model.SenderEmail, model.SenderName);
 
             await _client.SendEmailAsync(message);
-            */
 
             return CreatedAtAction(
                 "GetByCode",
@@ -135,10 +126,7 @@ namespace DevTrackR.API.Controllers
         {
             var package = _repository.GetByCode(code);
 
-            if (package == null)
-            {
-                return NotFound();
-            }
+            if (package == null) return NotFound();
 
             package.AddUpdate(model.Status, model.Delivered);
 
