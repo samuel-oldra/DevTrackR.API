@@ -7,28 +7,18 @@ namespace DevTrackR.API.Persistence.Repositories
     {
         private readonly DevTrackRContext _context;
 
-        public PackageRepository(DevTrackRContext context)
-        {
-            _context = context;
-        }
+        public PackageRepository(DevTrackRContext context) => _context = context;
+
+        public List<Package> GetAll() =>
+            _context.Packages.ToList();
+
+        public Package? GetByCode(string code) =>
+            _context.Packages.Include(p => p.Updates).SingleOrDefault(p => p.Code == code);
 
         public void Add(Package package)
         {
             _context.Packages.Add(package);
             _context.SaveChanges();
-        }
-
-        public List<Package> GetAll()
-        {
-            return _context.Packages.ToList();
-        }
-
-        public Package GetByCode(string code)
-        {
-            return _context
-                .Packages
-                .Include(p => p.Updates)
-                .SingleOrDefault(p => p.Code == code);
         }
 
         public void Update(Package package)

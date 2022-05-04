@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-/*Console.WriteLine("Digite o seu nome.");
+/*
+Console.WriteLine("Digite o seu nome.");
 
 var nome = Console.ReadLine();
 
@@ -87,7 +88,8 @@ Console.WriteLine($"Average: {average}");
 
 foreach (var nota in orderedNotas) {
     Console.Write(nota + " ");
-}*/
+}
+*/
 
 var pacotes = new List<Pacote>();
 
@@ -228,8 +230,7 @@ public class Pacote
 
 public class PacotePremium : Pacote
 {
-    public PacotePremium(string titulo, string descricao, string voo)
-        : base(titulo, descricao)
+    public PacotePremium(string titulo, string descricao, string voo) : base(titulo, descricao)
     {
         Voo = voo;
     }
