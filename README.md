@@ -23,3 +23,32 @@ Foi desenvolvida uma API REST completa de gerenciamento de pacotes.
 ###
 
 ![alt text](https://raw.githubusercontent.com/samuel-oldra/DevTrackR.API/main/README_IMGS/swagger_ui.png)
+
+## Comandos básicos
+```
+dotnet new webapi -o DevTrackR.API
+dotnet new console -o DevTrackR.Console
+dotnet build
+dotnet run
+dotnet watch run
+dotnet publish
+```
+
+## Comandos user-secrets
+```
+dotnet user-secrets init
+dotnet user-secrets set "ConnectionStrings:DevTrackRCs" "Server=localhost;Database=DevTrackRCs;User ID=sa;Password=senha;"
+dotnet user-secrets set "SendGridApiKey" "1234567890"
+dotnet user-secrets list
+```
+
+## Tool Entity Framework Core (migrations)
+```
+dotnet tool install --global dotnet-ef
+```
+
+## Migrations
+```
+dotnet ef migrations add InitialMigration -o Persistence/Migrations
+dotnet ef database update
+```
