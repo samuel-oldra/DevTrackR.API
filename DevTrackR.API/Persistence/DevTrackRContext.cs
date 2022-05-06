@@ -12,6 +12,7 @@ namespace DevTrackR.API.Persistence
 #pragma warning restore CS8618
 
         public DbSet<Package> Packages { get; set; }
+
         public DbSet<PackageUpdate> PackageUpdates { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
