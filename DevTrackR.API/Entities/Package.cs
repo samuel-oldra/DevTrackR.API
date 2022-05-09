@@ -31,7 +31,8 @@ namespace DevTrackR.API.Entities
         {
             Updates.Add(new PackageUpdate(status, Id));
 
-            if (delivered) Delivered = true;
+            if (delivered)
+                Delivered = true;
         }
     }
 }
