@@ -3,22 +3,26 @@ using DevTrackR.API.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using SendGrid.Extensions.DependencyInjection;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+// PARA ACESSO AO BANCO EM MEMÓRIA
+builder.Services.AddDbContext<DevTrackRContext>(o => o.UseInMemoryDatabase("DevTrackRDb"));
+
+// PARA ACESSO AO SQL Server
 // var connectionString = builder.Configuration.GetConnectionString("DevTrackRCs");
 // builder.Services.AddDbContext<DevTrackRContext>(o => o.UseSqlServer(connectionString));
 
-builder.Services.AddDbContext<DevTrackRContext>(o => o.UseInMemoryDatabase("DevTrackRDb"));
-
+// Injeção de Dependência
+// Tipos: Transient, Scoped, Singleton
+// Padrão Repository
 builder.Services.AddScoped<IPackageRepository, PackageRepository>();
 
-var sendGridApiKey = builder.Configuration.GetSection("SendGridApiKey").Value;
-builder.Services.AddSendGrid(o => o.ApiKey = sendGridApiKey);
-
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(o =>
@@ -35,17 +39,27 @@ builder.Services.AddSwaggerGen(o =>
         }
     });
 
-    var xmlPath = Path.Combine(AppContext.BaseDirectory, "DevTrackR.API.xml");
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     o.IncludeXmlComments(xmlPath);
 });
+
+// SendGrid
+var sendGridApiKey = builder.Configuration.GetSection("SendGridApiKey").Value;
+builder.Services.AddSendGrid(o => o.ApiKey = sendGridApiKey);
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (true)
+// INFO: Swagger visível só em desenvolvimento
+if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(o =>
+    {
+        o.RoutePrefix = string.Empty;
+        o.SwaggerEndpoint("/swagger/v1/swagger.json", "DevTrackR.API v1");
+    });
 }
 
 app.UseHttpsRedirection();

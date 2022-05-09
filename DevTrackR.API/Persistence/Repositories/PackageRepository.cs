@@ -7,7 +7,8 @@ namespace DevTrackR.API.Persistence.Repositories
     {
         private readonly DevTrackRContext _context;
 
-        public PackageRepository(DevTrackRContext context) => _context = context;
+        public PackageRepository(DevTrackRContext context) =>
+            _context = context;
 
         public List<Package> GetAll() =>
             _context.Packages.ToList();
