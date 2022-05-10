@@ -73,7 +73,7 @@ namespace DevTrackR.API.Controllers
         /// <param name="model">Dados do Pacote</param>
         /// <returns>Objeto criado</returns>
         /// <response code="201">Sucesso</response>
-        /// <response code="400">Dados inválidos.</response>
+        /// <response code="400">Dados inválidos</response>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
