@@ -5,17 +5,17 @@ namespace DevTrackR.API.Persistence
 {
     public class DevTrackRContext : DbContext
     {
-        public DevTrackRContext(DbContextOptions<DevTrackRContext> options) : base(options) { }
-
         public DbSet<Package> Packages { get; set; }
 
         public DbSet<PackageUpdate> PackageUpdates { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        public DevTrackRContext(DbContextOptions<DevTrackRContext> options) : base(options) { }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            builder.Entity<Package>(e =>
+            modelBuilder.Entity<Package>(p =>
             {
-                e.HasMany(p => p.Updates)
+                p.HasMany(p => p.Updates)
                     .WithOne()
                     .HasForeignKey(p => p.PackageId)
                     .OnDelete(DeleteBehavior.Restrict);
