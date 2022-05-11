@@ -4,9 +4,9 @@ namespace DevTrackR.API.Entities
     {
         public int Id { get; private set; }
 
-        public int PackageId { get; private set; }
-
         public string Status { get; private set; }
+
+        public int PackageId { get; private set; }
 
         public PackageUpdate(string status, int packageId)
         {
