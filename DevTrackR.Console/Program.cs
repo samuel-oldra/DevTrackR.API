@@ -32,12 +32,15 @@ switch(opcao) {
     case "1":
         Console.WriteLine("Você entrou no menu de Cadastro.");
         break;
+
     case "2":
         Console.WriteLine("Você entrou no menu de Reclamação.");
         break;
+
     case "3":
         Console.WriteLine("Você entrou no menu de Atendimento de Suporte.");
         break;
+
     default:
         Console.WriteLine("Opção inválida.");
         break;
@@ -94,17 +97,22 @@ ExibirMensagemPrincipal();
 
 var opcao = Console.ReadLine();
 
-while (opcao != "0") {
-    switch (opcao) {
+while (opcao != "0")
+{
+    switch (opcao)
+    {
         case "1":
             CadastrarPacote();
             break;
+
         case "2":
             AtualizarPacote();
             break;
+
         case "3":
             ConsultarPacote();
             break;
+
         default:
             Console.WriteLine("Opção inválida.");
             break;
@@ -114,7 +122,8 @@ while (opcao != "0") {
     opcao = Console.ReadLine();
 }
 
-void ExibirMensagemPrincipal() {
+void ExibirMensagemPrincipal()
+{
     Console.WriteLine("Digite o código de acordo com o que você quer.");
     Console.WriteLine("1- Cadastro de Pacote");
     Console.WriteLine("2- Atualizar Pacote");
@@ -122,7 +131,8 @@ void ExibirMensagemPrincipal() {
     Console.WriteLine("0- Sair da aplicação.");
 }
 
-void CadastrarPacote() {
+void CadastrarPacote()
+{
     Console.WriteLine("Digite o titulo.");
     var titulo = Console.ReadLine();
 
@@ -132,17 +142,19 @@ void CadastrarPacote() {
     var pacote = new Pacote(titulo, descricao);
 
     pacotes.Add(pacote);
-    
+
     Console.WriteLine($"Pacote com código {pacote.Codigo} foi cadastrado com sucesso.");
 }
 
-void AtualizarPacote() {
+void AtualizarPacote()
+{
     Console.WriteLine("Digite o código do pacote.");
     var codigo = Console.ReadLine();
 
     var pacote = pacotes.SingleOrDefault(p => p.Codigo == codigo);
 
-    if (pacote == null) {
+    if (pacote == null)
+    {
         Console.WriteLine("Pacote não encontrado!");
         return;
     }
@@ -154,13 +166,15 @@ void AtualizarPacote() {
     Console.WriteLine("Pacote atualizado com sucesso.");
 }
 
-void ConsultarPacote() {
+void ConsultarPacote()
+{
     Console.WriteLine("Digite o código do pacote.");
     var codigo = Console.ReadLine();
 
     var pacote = pacotes.SingleOrDefault(p => p.Codigo == codigo);
 
-    if (pacote == null) {
+    if (pacote == null)
+    {
         Console.WriteLine("Pacote não encontrado!");
         return;
     }
@@ -173,11 +187,13 @@ var pacote = new Pacote("Pacote Normal", "Um Pacote Normal");
 
 var conjuntoPacotes = new List<Pacote> { pacotePremium, pacote };
 
-foreach (var item in conjuntoPacotes) {
+foreach (var item in conjuntoPacotes)
+{
     item.ExibirDetalhes();
 }
 
-public class Pacote {
+public class Pacote
+{
     public Pacote(string titulo, string descricao)
     {
         Titulo = titulo;
@@ -188,15 +204,18 @@ public class Pacote {
         Status = "Postado.";
     }
 
-    private string GerarCodigo() {
+    private string GerarCodigo()
+    {
         return Guid.NewGuid().ToString();
     }
 
-    public void AtualizarStatus(string status) {
+    public void AtualizarStatus(string status)
+    {
         Status = status;
     }
 
-    public virtual void ExibirDetalhes() {
+    public virtual void ExibirDetalhes()
+    {
         Console.WriteLine($"Pacote {Titulo} e Código {Codigo} com status {Status}");
     }
 
@@ -204,13 +223,15 @@ public class Pacote {
     public string Descricao { get; set; }
     public string Codigo { get; set; }
     public DateTime DataPostagem { get; set; }
-    public string Status { get ; set; }
+    public string Status { get; set; }
 }
 
-public class PacotePremium : Pacote {
-    public PacotePremium(string titulo, string descricao, string voo) 
-        : base(titulo, descricao) {
-            Voo = voo;
+public class PacotePremium : Pacote
+{
+    public PacotePremium(string titulo, string descricao, string voo)
+        : base(titulo, descricao)
+    {
+        Voo = voo;
     }
 
     public string Voo { get; set; }

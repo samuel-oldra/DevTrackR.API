@@ -12,10 +12,12 @@ namespace DevTrackR.API.Entities
             Updates = new List<PackageUpdate>();
         }
 
-        public void AddUpdate(string status, bool delivered) {
+        public void AddUpdate(string status, bool delivered)
+        {
             Updates.Add(new PackageUpdate(status, Id));
 
-            if (delivered){
+            if (delivered)
+            {
                 Delivered = true;
             }
         }

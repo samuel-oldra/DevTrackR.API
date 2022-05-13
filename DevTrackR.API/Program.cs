@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 var connectionString = builder.Configuration.GetConnectionString("DevTrackRCs");
- 
+
 // builder.Services.AddDbContext<DevTrackRContext>(o => o.UseSqlServer(connectionString));
 builder.Services.AddDbContext<DevTrackRContext>(o => o.UseInMemoryDatabase("DevTrackRDb"));
 
@@ -22,11 +22,14 @@ builder.Services.AddSendGrid(o => o.ApiKey = sendGridApiKey);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(o => {
-    o.SwaggerDoc("v1", new OpenApiInfo{
+builder.Services.AddSwaggerGen(o =>
+{
+    o.SwaggerDoc("v1", new OpenApiInfo
+    {
         Title = "DevTrackR.API",
         Version = "v1",
-        Contact = new OpenApiContact {
+        Contact = new OpenApiContact
+        {
             Name = "LuisDev",
             Email = "contato@luisdev.com.br",
             Url = new Uri("https://luisdev.com.br")
