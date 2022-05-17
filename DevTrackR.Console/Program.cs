@@ -122,14 +122,13 @@ foreach (var nota in orderedNotas)
 
 */
 
-// TODO: Formatar e organizar o programa console.
+// Programa
 
 var pacotes = new List<Pacote>();
 
 Console.WriteLine("----- DevTrackR - Serviço de Postagem -----");
 
 ExibirMensagemPrincipal();
-
 var opcao = Console.ReadLine();
 
 while (opcao != "0")
@@ -139,15 +138,12 @@ while (opcao != "0")
         case "1":
             CadastrarPacote();
             break;
-
         case "2":
             AtualizarPacote();
             break;
-
         case "3":
             ConsultarPacote();
             break;
-
         default:
             Console.WriteLine("Opção inválida.");
             break;
@@ -159,15 +155,20 @@ while (opcao != "0")
 
 void ExibirMensagemPrincipal()
 {
+    Console.WriteLine();
+
     Console.WriteLine("Digite o código de acordo com o que você quer.");
-    Console.WriteLine("1- Cadastro de Pacote");
-    Console.WriteLine("2- Atualizar Pacote");
-    Console.WriteLine("3- Consultar Pacote");
-    Console.WriteLine("0- Sair da aplicação.");
+    Console.WriteLine("1 - Cadastro de Pacote");
+    Console.WriteLine("2 - Atualizar Pacote");
+    Console.WriteLine("3 - Consultar Pacote");
+    Console.WriteLine("0 - Sair da aplicação.");
+    Console.Write("Opção: ");
 }
 
 void CadastrarPacote()
 {
+    Console.WriteLine(); // Nova linha
+
     Console.WriteLine("Digite o titulo.");
     var titulo = Console.ReadLine();
 
@@ -175,7 +176,6 @@ void CadastrarPacote()
     var descricao = Console.ReadLine();
 
     var pacote = new Pacote(titulo, descricao);
-
     pacotes.Add(pacote);
 
     Console.WriteLine($"Pacote com código {pacote.Codigo} foi cadastrado com sucesso.");
@@ -183,11 +183,12 @@ void CadastrarPacote()
 
 void AtualizarPacote()
 {
+    Console.WriteLine(); // Nova linha
+
     Console.WriteLine("Digite o código do pacote.");
     var codigo = Console.ReadLine();
 
     var pacote = pacotes.SingleOrDefault(p => p.Codigo == codigo);
-
     if (pacote == null)
     {
         Console.WriteLine("Pacote não encontrado!");
@@ -203,11 +204,12 @@ void AtualizarPacote()
 
 void ConsultarPacote()
 {
+    Console.WriteLine(); // Nova linha
+
     Console.WriteLine("Digite o código do pacote.");
     var codigo = Console.ReadLine();
 
     var pacote = pacotes.SingleOrDefault(p => p.Codigo == codigo);
-
     if (pacote == null)
     {
         Console.WriteLine("Pacote não encontrado!");
@@ -217,8 +219,12 @@ void ConsultarPacote()
     pacote.ExibirDetalhes();
 }
 
-var pacotePremium = new PacotePremium("Pacote premium", "Um pacote premium", "Voo ABC");
-var pacote = new Pacote("Pacote Normal", "Um Pacote Normal");
+
+
+Console.WriteLine(); // Nova linha
+
+var pacotePremium = new PacotePremium("Premium", "Um pacote premium", "ABC");
+var pacote = new Pacote("Normal", "Um Pacote Normal");
 
 var conjuntoPacotes = new List<Pacote> { pacotePremium, pacote };
 
@@ -227,48 +233,50 @@ foreach (var item in conjuntoPacotes)
     item.ExibirDetalhes();
 }
 
+
+
 public class Pacote
 {
+    public string Codigo { get; set; }
+
+    public string Titulo { get; set; }
+
+    public string Descricao { get; set; }
+
+    public DateTime DataPostagem { get; set; }
+
+    public string Status { get; set; }
+
     public Pacote(string titulo, string descricao)
     {
         Titulo = titulo;
         Descricao = descricao;
 
-        Codigo = GerarCodigo();
+        Codigo = GerarCodigo;
         DataPostagem = DateTime.Now;
         Status = "Postado.";
     }
 
-    private string GerarCodigo()
-    {
-        return Guid.NewGuid().ToString();
-    }
+    private string GerarCodigo
+        => Guid.NewGuid().ToString();
 
     public void AtualizarStatus(string status)
-    {
-        Status = status;
-    }
+        => Status = status;
 
     public virtual void ExibirDetalhes()
-    {
-        Console.WriteLine($"Pacote {Titulo} e Código {Codigo} com status {Status}");
-    }
-
-    public string Titulo { get; set; }
-    public string Descricao { get; set; }
-    public string Codigo { get; set; }
-    public DateTime DataPostagem { get; set; }
-    public string Status { get; set; }
+        => Console.WriteLine($"Pacote {Titulo} e código {Codigo} com status {Status}");
 }
 
 public class PacotePremium : Pacote
 {
-    public PacotePremium(string titulo, string descricao, string voo) : base(titulo, descricao)
-    {
-        Voo = voo;
-    }
-
     public string Voo { get; set; }
+
+    public PacotePremium(
+        string titulo,
+        string descricao,
+        string voo)
+        : base(titulo, descricao)
+        => Voo = voo;
 
     public override void ExibirDetalhes()
     {
