@@ -175,7 +175,7 @@ void CadastrarPacote()
     Console.WriteLine("Digite a descrição.");
     var descricao = Console.ReadLine();
 
-    var pacote = new Pacote(titulo, descricao);
+    var pacote = new Pacote(titulo ?? string.Empty, descricao ?? string.Empty);
     pacotes.Add(pacote);
 
     Console.WriteLine($"Pacote com código {pacote.Codigo} foi cadastrado com sucesso.");
@@ -198,7 +198,7 @@ void AtualizarPacote()
     Console.WriteLine("Digite o status atual.");
     var status = Console.ReadLine();
 
-    pacote.AtualizarStatus(status);
+    pacote.AtualizarStatus(status ?? string.Empty);
     Console.WriteLine("Pacote atualizado com sucesso.");
 }
 
