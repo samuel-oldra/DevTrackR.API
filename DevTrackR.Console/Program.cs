@@ -49,12 +49,15 @@ switch (opcao)
     case "1":
         Console.WriteLine("Você entrou no menu de Cadastro.");
         break;
+
     case "2":
         Console.WriteLine("Você entrou no menu de Reclamação.");
         break;
+
     case "3":
         Console.WriteLine("Você entrou no menu de Atendimento de Suporte.");
         break;
+
     default:
         Console.WriteLine("Opção inválida.");
         break;
@@ -138,12 +141,15 @@ while (opcao != "0")
         case "1":
             CadastrarPacote();
             break;
+
         case "2":
             AtualizarPacote();
             break;
+
         case "3":
             ConsultarPacote();
             break;
+
         default:
             Console.WriteLine("Opção inválida.");
             break;
