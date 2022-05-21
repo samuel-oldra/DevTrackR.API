@@ -1,6 +1,11 @@
-# Projeto de API usando C# e .NET 6
-
-## DevTrackR - Jornada .NET Direto ao Ponto
+<h1 align="center">
+  DevTrackR - Jornada .NET Direto ao Ponto
+</h1>
+<p align="center">
+  <a href="#tecnologias-e-práticas-utilizadas">Tecnologias e práticas utilizadas</a> •
+  <a href="#funcionalidades">Funcionalidades</a> •
+  <a href="#comandos">Comandos</a>
+</p>
 
 Foi desenvolvida uma API REST completa de gerenciamento de pacotes.
 
@@ -24,7 +29,9 @@ Foi desenvolvida uma API REST completa de gerenciamento de pacotes.
 
 ![alt text](https://raw.githubusercontent.com/samuel-oldra/DevTrackR.API/main/README_IMGS/swagger_ui.png)
 
-## Comandos básicos
+## Comandos
+
+### Comandos básicos
 ```
 dotnet new gitignore
 dotnet new webapi -o DevTrackR.API
@@ -35,7 +42,7 @@ dotnet watch run
 dotnet publish
 ```
 
-## Comandos user-secrets
+### Comandos user-secrets
 ```
 dotnet user-secrets init
 dotnet user-secrets set "ConnectionStrings:DevTrackRCs" "Server=localhost;Database=DevTrackRCs;User ID=sa;Password=senha;"
@@ -43,13 +50,13 @@ dotnet user-secrets set "SendGridApiKey" "1234567890"
 dotnet user-secrets list
 ```
 
-## Tool Entity Framework Core (migrations)
+### Tool Entity Framework Core (migrations)
 ```
 dotnet tool install --global dotnet-ef
 dotnet tool uninstall --global dotnet-ef
 ```
 
-## Migrations
+### Migrations
 ```
 dotnet ef migrations add InitialMigration -o Persistence/Migrations
 dotnet ef database update
