@@ -45,7 +45,7 @@ dotnet publish
 ### Comandos user-secrets
 ```
 dotnet user-secrets init
-dotnet user-secrets set "ConnectionStrings:DevTrackRCs" "Server=localhost;Database=DevTrackRCs;User ID=sa;Password=senha;"
+dotnet user-secrets set "ConnectionStrings:DevTrackRCs" "Server=***;Database=***;User ID=***;Password=***;"
 dotnet user-secrets set "SendGridApiKey" "1234567890"
 dotnet user-secrets list
 ```
