@@ -47,6 +47,9 @@ dotnet publish
 dotnet user-secrets init
 dotnet user-secrets set "ConnectionStrings:DevTrackCs" "Server=***;Database=***;User ID=***;Password=***;"
 dotnet user-secrets set "SendGridApiKey" "1234567890"
+dotnet user-secrets remove "ConnectionStrings:DevTrackCs"
+dotnet user-secrets remove "SendGridApiKey"
+dotnet user-secrets clear
 dotnet user-secrets list
 ```
 
