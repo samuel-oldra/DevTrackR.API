@@ -26,6 +26,7 @@ Foi desenvolvida uma API REST completa de gerenciamento de pacotes.
 
 ## Comandos básicos
 ```
+dotnet new gitignore
 dotnet new webapi -o DevTrackR.API
 dotnet new console -o DevTrackR.Console
 dotnet build
