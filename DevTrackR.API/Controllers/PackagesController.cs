@@ -51,7 +51,8 @@ namespace DevTrackR.API.Controllers
         {
             var package = _repository.GetByCode(code);
 
-            if (package == null) return NotFound();
+            if (package == null)
+                return NotFound();
 
             return Ok(package);
         }
@@ -96,11 +97,7 @@ namespace DevTrackR.API.Controllers
 
             await _client.SendEmailAsync(message);
 
-            return CreatedAtAction(
-                "GetByCode",
-                new { code = package.Code },
-                package
-            );
+            return CreatedAtAction("GetByCode", new { code = package.Code }, package);
         }
 
         // POST: api/packages/{code}/updates
@@ -127,7 +124,8 @@ namespace DevTrackR.API.Controllers
         {
             var package = _repository.GetByCode(code);
 
-            if (package == null) return NotFound();
+            if (package == null)
+                return NotFound();
 
             package.AddUpdate(model.Status, model.Delivered);
 
