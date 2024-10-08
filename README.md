@@ -13,11 +13,11 @@ Foi desenvolvida uma API REST completa de gerenciamento de pacotes.
 - ASP.NET Core com .NET 6
 - Entity Framework Core
 - SQL Server / SQLite / In-Memory database
-- Swagger
-- Injeção de Dependência
+- Swagger (documentação)
+- SendGrid (envio de e-mail)
 - Programação Orientada a Objetos
+- Injeção de Dependência
 - Padrão Repository
-- Envio de E-mails com SendGrid
 - Clean Code
 - Publicação
 
@@ -36,9 +36,11 @@ Foi desenvolvida uma API REST completa de gerenciamento de pacotes.
 dotnet new gitignore
 dotnet new webapi -o DevTrackR.API
 dotnet new console -o DevTrackR.Console
+
 dotnet build
 dotnet run
 dotnet watch run
+
 dotnet publish
 ```
 
