@@ -15,6 +15,11 @@ namespace DevTrackR.API.Controllers
 
         private readonly ISendGridClient _client;
 
+        /// <summary>
+        /// Construtor
+        /// </summary>
+        /// <param name="repository"></param>
+        /// <param name="client"></param>
         public PackagesController(IPackageRepository repository, ISendGridClient client)
         {
             _repository = repository;
